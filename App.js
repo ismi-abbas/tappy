@@ -1,107 +1,90 @@
-import React from 'react';
-import type {Node} from 'react';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
+
+import {React, useState} from 'react';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  useColorScheme,
+  NativeBaseProvider,
+  Box,
+  FormControl,
+  Input,
+  Stack,
+  WarningOutlineIcon,
+  Avatar,
   View,
-} from 'react-native';
+  Button,
+  Image,
+} from 'native-base';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+const App = () => {
+  const [password, setPassword] = useState('');
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
+    <NativeBaseProvider>
       <View>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Maybank Tappy</Text>
-        </View>
-        <View style={styles.textBox}>
-          <TextInput placeholder="Enter your PFID" />
-        </View>
-        <View style={styles.textBox}>
-          <TextInput placeholder="AD Password" />
-        </View>
+        <Box alignItems="center" marginTop="4">
+          <Image
+            source={{
+              uri: 'DP_Small_Size.jpg',
+            }}
+            alt="Alternate Text"
+            size="xs"
+          />
+          <Text fontSize="xs">Maybank Tappy</Text>
+        </Box>
+
+        <Box alignItems="center">
+          <Box w="100%" maxWidth="300px" alignItems="center">
+            <FormControl isRequired>
+              <Stack mx="4">
+                <FormControl.Label>PFID</FormControl.Label>
+                <Input type="text" borderColor="coolGray.900" />
+                <FormControl.ErrorMessage
+                  leftIcon={<WarningOutlineIcon size="xs" />}>
+                  Please enter correct PFID
+                </FormControl.ErrorMessage>
+              </Stack>
+            </FormControl>
+
+            <FormControl isRequired>
+              <Stack mx="4">
+                <FormControl.Label>Password</FormControl.Label>
+                <Input
+                  type="text"
+                  value={password}
+                  borderColor="coolGray.900"
+                />
+                <FormControl.ErrorMessage
+                  leftIcon={<WarningOutlineIcon size="xs" />}>
+                  Please enter correct PFID
+                </FormControl.ErrorMessage>
+              </Stack>
+            </FormControl>
+            <Button
+              w="90%"
+              marginTop="4"
+              colorScheme="indigo"
+              borderRadius={'full'}
+              onPress={() => {
+                console.log(password);
+              }}>
+              Login
+            </Button>
+          </Box>
+        </Box>
       </View>
-    </SafeAreaView>
+    </NativeBaseProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  textBox: {
-    borderWidth: 2,
-    paddingTop: 2,
-    marginHorizontal: 20,
-    alignItems: 'center',
-    marginTop: 20,
-  },
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 20,
   },
 });
 
